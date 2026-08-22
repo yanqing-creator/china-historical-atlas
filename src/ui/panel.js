@@ -61,6 +61,26 @@ function renderHeader(c, meta) {
 
 let currentCityPeriod = '';
 
+document.getElementById('panel').addEventListener('click', async (e) => {
+  const aiBtn = e.target.closest('#ai-btn');
+  if (!aiBtn) return;
+  const box = document.getElementById('ai-box');
+  aiBtn.disabled = true;
+  aiBtn.textContent = t('aiLoading');
+  try {
+    const { generateGuide } = await import('../llm.js');
+    const md = await generateGuide(currentCityId);
+    box.innerHTML = '<h4 class="ai-title">AI</h4><pre class="ai-md">' + esc(md) + '</pre>';
+  } catch {
+    box.innerHTML = '<p class="ai-error">' + t('aiError') + '</p>';
+  } finally {
+    if (aiBtn.isConnected) {
+      aiBtn.disabled = false;
+      aiBtn.textContent = '✨ ' + t('ai');
+    }
+  }
+});
+
 export async function openCity(id) {
   await ensureData();
   currentCityId = id;
@@ -82,23 +102,6 @@ function bindPanel(panel, c) {
     panel.querySelector('.panel-body').innerHTML = renderBody(c);
     panel.querySelectorAll('.ptab').forEach((x) => x.classList.toggle('active', x.dataset.tab === activeTab));
   }));
-  panel.addEventListener('click', async (ev) => {
-    const aiBtn = ev.target.closest('#ai-btn');
-    if (!aiBtn) return;
-    const box = panel.querySelector('#ai-box');
-    aiBtn.disabled = true;
-    aiBtn.textContent = t('aiLoading');
-    try {
-      const { generateGuide } = await import('../llm.js');
-      const md = await generateGuide(currentCityId);
-      box.innerHTML = '<h4 class="ai-title">AI</h4><pre class="ai-md">' + esc(md) + '</pre>';
-    } catch {
-      box.innerHTML = '<p class="ai-error">' + t('aiError') + '</p>';
-    } finally {
-      aiBtn.disabled = false;
-      aiBtn.textContent = '✨ ' + t('ai');
-    }
-  });
 }
 
 export function closePanel() {
