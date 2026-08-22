@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Node.js >= 18，包管理器 npm
+- Node.js >= 20（@playwright/test 1.62 要求），包管理器 npm
 - 依赖版本：vite ^5.4.0、maplibre-gl ^4.7.0、world-atlas ^2.0.2（dev）、topojson-client ^3.1.0（dev）、@playwright/test ^1.46.0（dev）
 - 所有代码文件不加注释（house rule）
 - 提交信息用 conventional commit：`feat:` / `fix:` / `docs:` 前缀，每个任务结束时提交一次
