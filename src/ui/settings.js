@@ -12,21 +12,31 @@ export function getLLMConfig() {
   }
 }
 
+function escAttr(value) {
+  return String(value).replace(/[&<>"']/g, (ch) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[ch]));
+}
+
 export function initSettings() {
   const modal = document.getElementById('settings-modal');
   const btn = document.getElementById('settings-btn');
-  const saved = getLLMConfig();
   btn.addEventListener('click', () => {
     modal.classList.toggle('hidden');
     if (!modal.classList.contains('hidden')) {
+      const saved = getLLMConfig();
       modal.innerHTML = `
         <h3 class="cn">设置</h3><h3 class="en">Settings</h3>
         <label>API Key</label>
-        <input id="cfg-key" type="password" placeholder="sk-..." value="${saved ? saved.apiKey : ''}" />
+        <input id="cfg-key" type="password" placeholder="sk-..." value="${saved ? escAttr(saved.apiKey) : ''}" />
         <label>Base URL</label>
-        <input id="cfg-base" type="text" placeholder="https://api.openai.com/v1" value="${saved ? saved.baseUrl : 'https://api.openai.com/v1'}" />
+        <input id="cfg-base" type="text" placeholder="https://api.openai.com/v1" value="${saved ? escAttr(saved.baseUrl) : 'https://api.openai.com/v1'}" />
         <label>Model</label>
-        <input id="cfg-model" type="text" placeholder="gpt-4o-mini" value="${saved ? saved.model : 'gpt-4o-mini'}" />
+        <input id="cfg-model" type="text" placeholder="gpt-4o-mini" value="${saved ? escAttr(saved.model) : 'gpt-4o-mini'}" />
         <div class="cfg-actions">
           <button id="cfg-save">保存</button>
           <button id="cfg-close">关闭</button>
