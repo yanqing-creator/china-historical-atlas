@@ -47,6 +47,7 @@ export function setPeriod(periodId) {
   el.classList.add('period-fading');
   setTimeout(() => el.classList.remove('period-fading'), 350);
   map.flyTo({ center: p.center, zoom: p.zoom, duration: 1200 });
+  window.currentPeriod = periodId;
 }
 
 map.on('load', async () => {
@@ -116,3 +117,14 @@ map.on('load', async () => {
 window.__hm = { map, setPeriod };
 
 export { map, currentPeriod };
+
+import { setLang } from './i18n.js';
+import { openCity } from './ui/panel.js';
+import { openEvent } from './ui/eventpanel.js';
+
+window.currentPeriod = currentPeriod;
+document.getElementById('lang-btn').addEventListener('click', () => {
+  setLang(document.body.classList.contains('lang-en') ? 'zh' : 'en');
+});
+document.addEventListener('city-click', (e) => openCity(e.detail.id));
+document.addEventListener('event-click', (e) => openEvent(e.detail.id));
