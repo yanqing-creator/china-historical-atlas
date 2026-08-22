@@ -10,9 +10,7 @@ async function waitForLoadedMap(page) {
 }
 
 async function clickCityMarker(page, id) {
-  await page.evaluate((cid) => {
-    document.querySelector(`.city-marker[data-city-id="${cid}"]`).click();
-  }, id);
+  await page.locator(`.city-marker[data-city-id="${id}"]`).click();
 }
 
 test('clicking xian city marker opens panel with 6 tabs', async ({ page }) => {
@@ -64,9 +62,7 @@ test('clicking event marker opens event panel', async ({ page }) => {
   await waitForLoadedMap(page);
   const marker = page.locator('.event-marker[data-event-id="unify-qin"]');
   await marker.waitFor({ timeout: 15000 });
-  await page.evaluate(() => {
-    document.querySelector('.event-marker[data-event-id="unify-qin"]').click();
-  });
+  await marker.click();
   await page.waitForSelector('#panel:not(.closed)', { timeout: 15000 });
   await expect(page.locator('#panel h2')).toHaveText('历史事件');
   await expect(page.locator('#panel .event-body h3')).toHaveText('秦统一六国');
