@@ -4,6 +4,7 @@ import './styles.css';
 import { PALETTE, buildStyle } from './style.js';
 import { PERIODS, ALL_BORDER_IDS, borderIdsByPeriod, periodById } from './periods.js';
 import { initTimeline, markActive } from './ui/timeline.js';
+import { initSettings } from './ui/settings.js';
 import { loadMarkers, refreshMarkers } from './markers.js';
 
 const map = new maplibregl.Map({
@@ -110,6 +111,7 @@ map.on('load', async () => {
     paint: { 'line-color': PALETTE.silkSea, 'line-width': 1.6, 'line-dasharray': [2, 4] } });
 
   initTimeline((id) => setPeriod(id));
+  initSettings();
   await loadMarkers();
   setPeriod(PERIODS[0].id);
 });

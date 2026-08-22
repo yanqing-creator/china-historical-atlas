@@ -1,4 +1,7 @@
 import { lang, setLang, t, UI } from '../i18n.js';
+import { getLLMConfig } from './settings.js';
+
+window.getLLMConfig = getLLMConfig;
 
 let contentCache = null;
 let cityMeta = null;
@@ -37,7 +40,8 @@ function renderGuide(c, l) {
 function renderBody(c) {
   const l = lang();
   if (activeTab === 'guide') {
-    return `<div class="guide-body">${renderGuide(c, l)}<div id="ai-box"></div></div>`;
+    const hasKey = window.getLLMConfig ? !!window.getLLMConfig() : false;
+    return `<div class="guide-body">${renderGuide(c, l)}${hasKey ? '<button id="ai-btn" class="ai-btn">✨ ' + t('ai') + '</button>' : ''}<div id="ai-box"></div></div>`;
   }
   if (activeTab === 'attractions' || activeTab === 'food') {
     return `<ul class="plain-list">${c[`${activeTab}_${l}`].map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`;
@@ -78,6 +82,23 @@ function bindPanel(panel, c) {
     panel.querySelector('.panel-body').innerHTML = renderBody(c);
     panel.querySelectorAll('.ptab').forEach((x) => x.classList.toggle('active', x.dataset.tab === activeTab));
   }));
+  panel.addEventListener('click', async (ev) => {
+    const aiBtn = ev.target.closest('#ai-btn');
+    if (!aiBtn) return;
+    const box = panel.querySelector('#ai-box');
+    aiBtn.disabled = true;
+    aiBtn.textContent = t('aiLoading');
+    try {
+      const { generateGuide } = await import('../llm.js');
+      const md = await generateGuide(currentCityId);
+      box.innerHTML = '<h4 class="ai-title">AI</h4><pre class="ai-md">' + esc(md) + '</pre>';
+    } catch {
+      box.innerHTML = '<p class="ai-error">' + t('aiError') + '</p>';
+    } finally {
+      aiBtn.disabled = false;
+      aiBtn.textContent = '✨ ' + t('ai');
+    }
+  });
 }
 
 export function closePanel() {
