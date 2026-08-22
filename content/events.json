@@ -1,27 +1,202 @@
 {
-  "unify-qin": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "burn-books": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "chenshe-uprising": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "zhangqian": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "silkroad-open": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "guandu": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "chibi": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "yiling": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "feishui": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "xiaowen-move": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "grand-canal": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "zhenguan": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "xuanzang": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "anshi": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "huangchao": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "chanyuan": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "jingkang": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "yuefei": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "maritime-peak": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "yashan": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "kublai-yuan": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "zhenghe": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "tumubao": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "yakesa": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" },
-  "humen": { "name_zh": "", "name_en": "", "year_zh": "", "year_en": "", "desc_zh": "", "desc_en": "" }
+  "unify-qin": {
+    "name_zh": "秦统一六国",
+    "name_en": "Qin Unifies the Six States",
+    "year_zh": "公元前 221 年",
+    "year_en": "221 BCE",
+    "desc_zh": "秦王嬴政先后灭韩、赵、魏、楚、燕、齐六国，结束了长期分裂割据的局面，建立了中国历史上第一个大一统的中央集权王朝。他创立皇帝制度，自称始皇帝，统一文字、度量衡与货币，奠定了此后两千余年大一统政治的根基。",
+    "desc_en": "King Ying Zheng of Qin conquered the six rival states of Han, Zhao, Wei, Chu, Yan and Qi, ending centuries of division and founding China's first unified, centralized empire. Proclaiming himself Shi Huangdi, the First Emperor, he standardized the script, weights and measures, and coinage, laying the foundations of imperial rule for the next two millennia."
+  },
+  "burn-books": {
+    "name_zh": "焚书坑儒",
+    "name_en": "Burning of Books and Burying of Scholars",
+    "year_zh": "公元前 213 年",
+    "year_en": "213 BCE",
+    "desc_zh": "秦始皇采纳丞相李斯的建议，下令焚毁民间所藏《诗》《书》及百家典籍，只保留医药、卜筮、农书。次年又因方士诋毁朝政而坑杀儒生术士四百六十余人，以高压手段统一思想、控制舆论。",
+    "desc_en": "On the advice of Chancellor Li Si, the First Emperor ordered the burning of privately held classics and works of the Hundred Schools, sparing only texts on medicine, divination and agriculture. The following year, after alchemists slandered his rule, more than four hundred Confucian scholars were buried alive, as harsh measures were used to enforce ideological conformity and silence dissent."
+  },
+  "chenshe-uprising": {
+    "name_zh": "陈胜吴广起义",
+    "name_en": "Chen Sheng–Wu Guang Uprising",
+    "year_zh": "公元前 209 年",
+    "year_en": "209 BCE",
+    "desc_zh": "陈胜、吴广率九百戍卒在大泽乡遇雨失期，遂斩木为兵、揭竿而起，高呼「王侯将相宁有种乎」。这场起义揭开了秦末农民战争的序幕，各地豪杰纷纷响应，秦王朝统治迅速瓦解。",
+    "desc_en": "Chen Sheng and Wu Guang, stranded by rain at Dazexiang with nine hundred conscripts, raised the banner of revolt, crying out: \"Are kings and nobles born to their rank?\" Their uprising ignited the peasant wars that brought down the Qin dynasty, as rebels across the empire rose in response."
+  },
+  "zhangqian": {
+    "name_zh": "张骞出使西域",
+    "name_en": "Zhang Qian's Mission to the Western Regions",
+    "year_zh": "公元前 138 年",
+    "year_en": "138 BCE",
+    "desc_zh": "张骞奉汉武帝之命出使西域，欲联络大月氏夹击匈奴。他历尽艰险、被俘十年而不改其志，最终凿空西域，带回了中亚诸国的地理与物产信息，为丝绸之路的开辟奠定了基础。",
+    "desc_en": "Zhang Qian was dispatched by Emperor Wu of Han to seek an alliance with the Yuezhi against the Xiongnu. Captured and held for a decade, he never abandoned his mission, and in the end his pioneering journey into the Western Regions brought back knowledge of Central Asia's geography and goods, paving the way for the Silk Road."
+  },
+  "silkroad-open": {
+    "name_zh": "丝绸之路开通",
+    "name_en": "Opening of the Silk Road",
+    "year_zh": "公元前 60 年",
+    "year_en": "60 BCE",
+    "desc_zh": "汉朝在乌垒城设立西域都护府，正式将西域纳入管辖，丝路全线贯通。此后中国的丝绸、漆器与冶铁技术西传，西域的良马、葡萄与乐舞东来，东西方文明开始大规模交流。",
+    "desc_en": "The Han court established the Protectorate of the Western Regions at Wulei, bringing the region under its administration and opening the Silk Road along its full length. Chinese silk, lacquerware and iron-working spread westward, while fine horses, grapes, music and dance flowed east, ushering in large-scale exchange between Eastern and Western civilizations."
+  },
+  "guandu": {
+    "name_zh": "官渡之战",
+    "name_en": "Battle of Guandu",
+    "year_zh": "200 年",
+    "year_en": "200",
+    "desc_zh": "曹操与袁绍在官渡对峙，兵力远逊于敌。曹操亲率精骑夜袭乌巢，焚毁袁军粮草，袁军军心大乱，主力溃败。此战以少胜多，奠定了曹操统一北方的基础。",
+    "desc_en": "At Guandu, Cao Cao faced Yuan Shao's far larger army. Launching a daring night raid on the Wuchao supply depot, he burned the enemy's grain stores; Yuan Shao's forces collapsed in panic and were routed. This celebrated victory of the few over the many laid the foundation for Cao Cao's unification of northern China."
+  },
+  "chibi": {
+    "name_zh": "赤壁之战",
+    "name_en": "Battle of Red Cliffs",
+    "year_zh": "208 年",
+    "year_en": "208",
+    "desc_zh": "曹操率大军南下，孙刘联军在赤壁以火攻大破曹军水寨，曹军伤亡惨重，被迫北撤。此战奠定了三国鼎立的格局，是中国历史上著名的以弱胜强之战。",
+    "desc_en": "As Cao Cao's host swept south, the allied forces of Sun Quan and Liu Bei met it at Red Cliffs, where a fire attack destroyed his naval camp and inflicted heavy losses, forcing his retreat to the north. The battle fixed the tripartite division of the Three Kingdoms and stands among the most famous victories of the weak over the strong in Chinese history."
+  },
+  "yiling": {
+    "name_zh": "夷陵之战",
+    "name_en": "Battle of Yiling",
+    "year_zh": "222 年",
+    "year_en": "222",
+    "desc_zh": "刘备为报关羽之仇，亲率大军东征孙吴。吴将陆逊坚守不出，待蜀军连营七百里、师老兵疲之际火烧连营，蜀军大败。刘备败退白帝城，蜀汉元气大伤。",
+    "desc_en": "To avenge Guan Yu, Liu Bei personally led a great army against Eastern Wu. Lu Xun held firm, then set fire to the Shu camps strung out over seven hundred li once the invaders were exhausted, inflicting a crushing defeat. Liu Bei withdrew to Baidicheng, and Shu-Han never recovered its strength."
+  },
+  "feishui": {
+    "name_zh": "淝水之战",
+    "name_en": "Battle of the Fei River",
+    "year_zh": "383 年",
+    "year_en": "383",
+    "desc_zh": "前秦苻坚率八十余万大军南下，扬言投鞭断流。东晋谢玄以八万北府兵迎战，趁秦军半渡而击，秦军一溃千里。此战大败苻坚，「风声鹤唳、草木皆兵」的典故即出于此。",
+    "desc_en": "Fu Jian of the Former Qin marched south with an army of more than eight hundred thousand, boasting that his men's whips could dam a river. Xie Xuan of Eastern Jin met him at the Fei River with a mere eighty thousand, struck as the Qin host was half across, and shattered it utterly. From the rout come the idioms \"startled by the sound of the wind\" and \"seeing enemies in every tree and bush.\""
+  },
+  "xiaowen-move": {
+    "name_zh": "孝文帝迁都",
+    "name_en": "Emperor Xiaowen Moves the Capital",
+    "year_zh": "494 年",
+    "year_en": "494",
+    "desc_zh": "北魏孝文帝元宏力排众议，将都城从平城迁至洛阳，全面推行汉化改革：改汉姓、穿汉服、说汉语，鼓励鲜卑贵族与汉族通婚。这场改革促进了民族融合，也使北魏国力达到鼎盛。",
+    "desc_en": "Overriding fierce opposition, Emperor Xiaowen of Northern Wei moved the capital from Pingcheng to Luoyang and launched sweeping Sinicization reforms: adopting Han surnames, dress and language, and encouraging intermarriage between Xianbei nobles and Han families. The reforms deepened ethnic integration and carried Northern Wei to the height of its power."
+  },
+  "grand-canal": {
+    "name_zh": "开凿大运河",
+    "name_en": "Building the Grand Canal",
+    "year_zh": "605 年",
+    "year_en": "605",
+    "desc_zh": "隋炀帝征发数百万民夫开凿大运河，贯通南北，连接海河、黄河、淮河、长江、钱塘江五大水系。运河成为南北经济文化交流的大动脉，功在千秋，却也因劳役过重加速了隋朝的覆亡。",
+    "desc_en": "Emperor Yang of Sui mobilized millions of laborers to dig the Grand Canal, linking north and south and joining five great river systems: the Hai, Yellow, Huai, Yangtze and Qiantang. The canal became the great artery of economic and cultural exchange between north and south, a legacy for the ages, though its crushing corvée burdens hastened the dynasty's fall."
+  },
+  "zhenguan": {
+    "name_zh": "贞观之治",
+    "name_en": "The Zhenguan Reign",
+    "year_zh": "627 年",
+    "year_en": "627",
+    "desc_zh": "唐太宗李世民即位后虚心纳谏、任贤用能，以魏徵为镜整肃吏治，轻徭薄赋、休养生息。贞观年间政治清明、社会安定、四夷宾服，史称「贞观之治」，为大唐盛世揭开序幕。",
+    "desc_en": "After ascending the throne, Emperor Taizong (Li Shimin) welcomed remonstrance and promoted able officials, taking the frank minister Wei Zheng as his mirror, while lightening taxes and letting the people recover. The Zhenguan era of clean government, social stability and submission of the surrounding peoples opened the golden age of the Tang dynasty."
+  },
+  "xuanzang": {
+    "name_zh": "玄奘西行",
+    "name_en": "Xuanzang's Journey to the West",
+    "year_zh": "629 年",
+    "year_en": "629",
+    "desc_zh": "玄奘法师孤身西行，历时十七年、跋涉五万里，赴天竺取回佛经六百余部。归国后译经弘法，并撰《大唐西域记》记述沿途见闻，此书后来成为《西游记》的灵感之源。",
+    "desc_en": "The monk Xuanzang set out alone for India, and over seventeen years and fifty thousand li brought back more than six hundred Buddhist scriptures. After his return he devoted himself to translating and teaching, and wrote the Great Tang Records on the Western Regions, which later inspired the classic novel Journey to the West."
+  },
+  "anshi": {
+    "name_zh": "安史之乱",
+    "name_en": "An Lushan Rebellion",
+    "year_zh": "755 年",
+    "year_en": "755",
+    "desc_zh": "安禄山自范阳起兵叛乱，叛军势如破竹，连陷洛阳、长安，唐玄宗仓皇西逃。这场历时八年的战乱使中原生灵涂炭，唐朝国力大损，由盛转衰。",
+    "desc_en": "An Lushan rose in rebellion from Fanyang, and his forces stormed through Luoyang and Chang'an as Emperor Xuanzong fled west. The eight years of warfare devastated the Central Plain and drained the empire's strength, marking the turning point from Tang splendor to decline."
+  },
+  "huangchao": {
+    "name_zh": "黄巢起义",
+    "name_en": "Huang Chao Rebellion",
+    "year_zh": "875 年",
+    "year_en": "875",
+    "desc_zh": "黄巢率义军转战大半个中国，历时六年攻入长安，即皇帝位，国号大齐。起义虽终告失败，但唐朝经此打击藩镇林立、名存实亡。",
+    "desc_en": "Huang Chao's rebel army fought its way across half of China, and in its sixth year stormed Chang'an, where he proclaimed himself emperor of the Great Qi. Though the rebellion was eventually crushed, the Tang dynasty was left a hollow shell, its provinces in the hands of warlords."
+  },
+  "chanyuan": {
+    "name_zh": "澶渊之盟",
+    "name_en": "Treaty of Chanyuan",
+    "year_zh": "1005 年",
+    "year_en": "1005",
+    "desc_zh": "辽军大举南侵，宋真宗在寇准力劝下御驾亲征，宋军士气大振。宋辽在澶州订立盟约，北宋以岁币换取和平，此后百余年双方罢兵休战，边境保持和局。",
+    "desc_en": "When the Liao armies invaded in force, Emperor Zhenzong, urged by the chancellor Kou Zhun, took the field in person and lifted Song morale. The two states then concluded the Treaty of Chanyuan, under which the Song paid annual tribute in exchange for peace, and the border remained quiet for more than a century."
+  },
+  "jingkang": {
+    "name_zh": "靖康之变",
+    "name_en": "Jingkang Incident",
+    "year_zh": "1127 年",
+    "year_en": "1127",
+    "desc_zh": "金兵两路南下攻破汴京，徽宗、钦宗二帝及后妃宗室三千余人被掳北去，史称「靖康之变」，北宋灭亡。康王赵构南渡建立南宋，偏安江南一隅。",
+    "desc_en": "Jin forces broke through the Song capital Bianjing and carried off Emperors Huizong and Qinzong together with more than three thousand members of the imperial family, in what is known as the Jingkang Incident, ending the Northern Song. Prince Kang, the future Gaozong, fled south and established the Southern Song in its diminished realm."
+  },
+  "yuefei": {
+    "name_zh": "岳飞北伐",
+    "name_en": "Yue Fei's Northern Expeditions",
+    "year_zh": "1140 年",
+    "year_en": "1140",
+    "desc_zh": "岳飞率岳家军北伐，郾城、朱仙镇连捷，大破金军铁骑，直逼故都汴京。然而高宗连发十二道金牌召其班师，十年之功毁于一旦，岳飞后被以「莫须有」罪名杀害。",
+    "desc_en": "Yue Fei led his celebrated army north, crushing the Jin cavalry at Yancheng and Zhuxian and driving to the gates of the old capital. But twelve golden edicts recalled him from the front, throwing away a decade's work, and he was later executed on the fabricated charge of \"perhaps there was\" a crime."
+  },
+  "maritime-peak": {
+    "name_zh": "海上丝路鼎盛",
+    "name_en": "Maritime Silk Road at Its Height",
+    "year_zh": "12-13 世纪",
+    "year_en": "12th–13th century",
+    "desc_zh": "南宋以降，泉州刺桐港帆樯如林、商贾云集，与近百个国家和地区有贸易往来，被誉为「东方第一大港」。海上丝绸之路进入黄金时代，瓷器、丝绸、茶叶远销海外，阿拉伯与印度商人云集于此。",
+    "desc_en": "Under the Southern Song, the harbor of Quanzhou (Zayton) thronged with sails and merchants, trading with nearly a hundred countries and regions and hailed as the greatest port of the East. The Maritime Silk Road entered its golden age, carrying porcelain, silk and tea to distant shores as Arab and Indian merchants converged on the city."
+  },
+  "yashan": {
+    "name_zh": "崖山海战",
+    "name_en": "Battle of Yamen",
+    "year_zh": "1279 年",
+    "year_en": "1279",
+    "desc_zh": "宋元两军会战于崖山，宋军战败，全军覆没。丞相陆秀夫背负幼帝赵昺蹈海殉国，十余万军民相继投海，南宋灭亡，蒙元统一全国。",
+    "desc_en": "The Song and Yuan fleets met at Yamen, where the Song navy was annihilated. Chancellor Lu Xiufu plunged into the sea bearing the child emperor Zhao Bing on his back, and over a hundred thousand soldiers and civilians followed them into the waves, ending the Southern Song and completing the Mongol conquest of China."
+  },
+  "kublai-yuan": {
+    "name_zh": "忽必烈建元",
+    "name_en": "Kublai Khan Founds the Yuan",
+    "year_zh": "1271 年",
+    "year_en": "1271",
+    "desc_zh": "忽必烈取《易经》「大哉乾元」之义，定国号为「大元」，次年定都大都（今北京）。元朝是中国历史上第一个由少数民族建立的大一统王朝，疆域空前辽阔。",
+    "desc_en": "Drawing on the Book of Changes, Kublai Khan adopted the dynastic name \"Great Yuan\" and made Dadu (today's Beijing) his capital the following year. The Yuan was the first unified dynasty established by a non-Han people, ruling an empire of unprecedented extent."
+  },
+  "zhenghe": {
+    "name_zh": "郑和下西洋",
+    "name_en": "Zheng He's Voyages",
+    "year_zh": "1405 年",
+    "year_en": "1405",
+    "desc_zh": "郑和奉明成祖之命率庞大船队七下西洋，最远抵达东非海岸，访问三十余国。船队规模空前，比欧洲大航海时代早近一个世纪，传播了中华文明与和平交往的理念。",
+    "desc_en": "Commissioned by the Yongle Emperor, Zheng He led a mighty fleet on seven voyages across the Western Ocean, reaching the coast of East Africa and visiting more than thirty lands. Unmatched in scale, the voyages preceded the European Age of Discovery by nearly a century and carried Chinese civilization and peaceful diplomacy across the seas."
+  },
+  "tumubao": {
+    "name_zh": "土木堡之变",
+    "name_en": "Tumu Crisis",
+    "year_zh": "1449 年",
+    "year_en": "1449",
+    "desc_zh": "明英宗在宦官王振怂恿下御驾亲征瓦剌，于土木堡兵败被俘，数十万明军覆没。京城震动，于谦力主抗战、拥立景帝，才使明朝转危为安，但国势已由盛转衰。",
+    "desc_en": "Egged on by the eunuch Wang Zhen, Emperor Yingzong personally led an army against the Oirat Mongols, only to be routed and captured at Tumu Fortress with his host of hundreds of thousands annihilated. The capital reeled, and only Yu Qian's resolute defense and support for a new emperor saved the dynasty, though its decline had begun."
+  },
+  "yakesa": {
+    "name_zh": "雅克萨之战",
+    "name_en": "Battle of Albazin",
+    "year_zh": "1685 年",
+    "year_en": "1685",
+    "desc_zh": "沙俄侵入黑龙江流域并占据雅克萨城，清军两次围攻收复失地，迫使俄军乞和。双方签订《尼布楚条约》，从法律上确定了中俄东段边界，这是清朝与西方国家签订的第一个平等条约。",
+    "desc_en": "After Russian forces intruded into the Amur valley and seized Albazin, Qing armies twice besieged the fortress and drove them out, forcing the Tsar to sue for peace. The Treaty of Nerchinsk that followed legally defined the eastern border between the two empires, the first treaty of equals between the Qing and a Western power."
+  },
+  "humen": {
+    "name_zh": "虎门销烟",
+    "name_en": "Destruction of Opium at Humen",
+    "year_zh": "1839 年",
+    "year_en": "1839",
+    "desc_zh": "钦差大臣林则徐在广东厉行禁烟，于虎门海滩当众销毁缴获的两万余箱鸦片，历时二十三天。虎门销烟展示了中国人民反抗侵略的意志，也揭开中国近代史的序幕。",
+    "desc_en": "Imperial Commissioner Lin Zexu waged a vigorous campaign against opium in Guangdong, publicly destroying more than twenty thousand chests of confiscated opium on the beach at Humen over twenty-three days. The destruction declared China's will to resist foreign aggression and opened the first chapter of modern Chinese history."
+  }
 }

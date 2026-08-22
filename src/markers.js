@@ -2,12 +2,35 @@ import maplibregl from 'maplibre-gl';
 import { map } from './main.js';
 
 let citiesData = [];
+let eventsData = [];
 let currentPeriodId = null;
 let markers = [];
 
 export async function loadMarkers() {
-  const res = await fetch('./data/geo/cities.geojson');
-  citiesData = (await res.json()).features;
+  const [cRes, eRes] = await Promise.all([
+    fetch('./data/geo/cities.geojson'),
+    fetch('./data/geo/events.geojson')
+  ]);
+  citiesData = (await cRes.json()).features;
+  eventsData = (await eRes.json()).features;
+  const content = await (await fetch('./content/events.json')).json();
+  for (const f of eventsData) {
+    f.properties.name_zh = content[f.properties.id].name_zh;
+    f.properties.name_en = content[f.properties.id].name_en;
+  }
+}
+
+function makeMarker(content, dataAttr, eventName, extraClass) {
+  const el = document.createElement('div');
+  el.className = extraClass;
+  el.dataset[dataAttr] = content.properties.id;
+  el.innerHTML = `<span class="dot"></span><span class="label cn">${content.properties.name_zh}</span><span class="label en">${content.properties.name_en}</span>`;
+  el.addEventListener('click', () => {
+    document.dispatchEvent(new CustomEvent(eventName, { detail: { id: content.properties.id } }));
+  });
+  return new maplibregl.Marker({ element: el, anchor: 'center' })
+    .setLngLat(content.geometry.coordinates)
+    .addTo(map);
 }
 
 export function refreshMarkers(periodId) {
@@ -18,17 +41,11 @@ export function refreshMarkers(periodId) {
   for (const f of citiesData) {
     if (!f.properties.period.includes(periodId)) continue;
     visibleCityIds.push(f.properties.id);
-    const el = document.createElement('div');
-    el.className = 'city-marker';
-    el.dataset.cityId = f.properties.id;
-    el.innerHTML = `<span class="dot"></span><span class="label cn">${f.properties.name_zh}</span><span class="label en">${f.properties.name_en}</span>`;
-    el.addEventListener('click', () => {
-      document.dispatchEvent(new CustomEvent('city-click', { detail: { id: f.properties.id } }));
-    });
-    const m = new maplibregl.Marker({ element: el, anchor: 'center' })
-      .setLngLat(f.geometry.coordinates)
-      .addTo(map);
-    markers.push(m);
+    markers.push(makeMarker(f, 'cityId', 'city-click', 'city-marker'));
+  }
+  for (const f of eventsData) {
+    if (f.properties.period !== periodId) continue;
+    markers.push(makeMarker(f, 'eventId', 'event-click', 'event-marker'));
   }
   if (map.getLayer('city-dot')) {
     if (visibleCityIds.length) {

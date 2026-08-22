@@ -46,3 +46,14 @@ body.lang-en .tl-btn .en { display: inline; }
 .city-marker .label.en { display: none; font-family: 'EB Garamond', Georgia, serif; font-size: 11px; font-weight: 400; }
 body.lang-en .city-marker .label.cn { display: none; }
 body.lang-en .city-marker .label.en { display: inline; }
+
+.event-marker { position: relative; display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.event-marker .dot { width: 12px; height: 12px; border-radius: 2px;
+  background: #8c2f2f; border: 1.5px solid #f3e9d2; box-shadow: 0 0 0 1px #8c2f2f;
+  transform: rotate(45deg); }
+.event-marker .label { font-family: 'Noto Serif SC', 'Songti SC', serif; font-size: 11px;
+  font-weight: 600; color: #8c2f2f; white-space: nowrap;
+  text-shadow: 0 0 3px #f3e9d2, 0 0 3px #f3e9d2; }
+.event-marker .label.en { display: none; font-family: 'EB Garamond', Georgia, serif; font-size: 10px; }
+body.lang-en .event-marker .label.cn { display: none; }
+body.lang-en .event-marker .label.en { display: inline; }
