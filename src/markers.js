@@ -7,16 +7,22 @@ let currentPeriodId = null;
 let markers = [];
 
 export async function loadMarkers() {
-  const [cRes, eRes] = await Promise.all([
-    fetch('./data/geo/cities.geojson'),
-    fetch('./data/geo/events.geojson')
-  ]);
-  citiesData = (await cRes.json()).features;
-  eventsData = (await eRes.json()).features;
-  const content = await (await fetch('./content/events.json')).json();
-  for (const f of eventsData) {
-    f.properties.name_zh = content[f.properties.id].name_zh;
-    f.properties.name_en = content[f.properties.id].name_en;
+  try {
+    const [cRes, eRes] = await Promise.all([
+      fetch('./data/geo/cities.geojson'),
+      fetch('./data/geo/events.geojson')
+    ]);
+    citiesData = (await cRes.json()).features;
+    eventsData = (await eRes.json()).features;
+    const content = await (await fetch('./content/events.json')).json();
+    for (const f of eventsData) {
+      f.properties.name_zh = content[f.properties.id].name_zh;
+      f.properties.name_en = content[f.properties.id].name_en;
+    }
+  } catch (err) {
+    console.error('Failed to load marker data:', err);
+    citiesData = [];
+    eventsData = [];
   }
 }
 
