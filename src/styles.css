@@ -33,3 +33,6 @@ body.lang-en .tl-btn .en { display: inline; }
 #settings-modal { position: absolute; z-index: 20; right: 16px; top: 56px; width: 300px;
   background: rgba(250,244,228,0.98); border: 1px solid #8a6f4d; border-radius: 4px; padding: 14px; }
 #settings-modal.hidden { display: none; }
+
+#map { transition: opacity 0.25s ease; }
+#map.period-fading { opacity: 0.55; }
