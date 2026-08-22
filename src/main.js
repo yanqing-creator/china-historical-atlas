@@ -61,7 +61,7 @@ map.on('load', () => {
     map.addLayer({
       id: `border-fill-${id}`, type: 'fill', source: 'borders',
       filter: ['==', ['get', 'id'], id],
-      paint: { 'fill-color': '#9c4a3a', 'fill-opacity': 0.16 }
+      paint: { 'fill-color': ['coalesce', ['get', 'color'], '#9c4a3a'], 'fill-opacity': 0.16 }
     });
     map.addLayer({
       id: `border-line-${id}`, type: 'line', source: 'borders',
