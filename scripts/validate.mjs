@@ -1,12 +1,12 @@
 import fs from 'node:fs';
 
 const read = (p) => JSON.parse(fs.readFileSync(new URL(p, import.meta.url), 'utf-8'));
-const CITY_IDS = read('../data/geo/cities.geojson').features.map((f) => f.properties.id);
-const EVENT_IDS = read('../data/geo/events.geojson').features.map((f) => f.properties.id);
+const CITY_IDS = read('../public/data/geo/cities.geojson').features.map((f) => f.properties.id);
+const EVENT_IDS = read('../public/data/geo/events.geojson').features.map((f) => f.properties.id);
 const VALID_PERIODS = ['qinhan', 'sanguo', 'suitang', 'songliaojin', 'yuanmingqing'];
 
-const cities = read('../content/cities.json');
-const events = read('../content/events.json');
+const cities = read('../public/content/cities.json');
+const events = read('../public/content/events.json');
 
 const errors = [];
 const nonEmpty = (v) => typeof v === 'string' && v.trim().length > 0;
@@ -45,13 +45,13 @@ for (const id of Object.keys(events)) {
   if (!EVENT_IDS.includes(id)) errors.push(`events.json has unknown id: ${id}`);
 }
 
-for (const f of read('../data/geo/cities.geojson').features) {
+for (const f of read('../public/data/geo/cities.geojson').features) {
   if (!VALID_PERIODS.some((p) => f.properties.period.includes(p))) errors.push(`city ${f.properties.id} has invalid period`);
   for (const p of f.properties.period) {
     if (!f.properties.ancient[p]) errors.push(`city ${f.properties.id} missing ancient name for period ${p}`);
   }
 }
-for (const f of read('../data/geo/events.geojson').features) {
+for (const f of read('../public/data/geo/events.geojson').features) {
   if (!VALID_PERIODS.includes(f.properties.period)) errors.push(`event ${f.properties.id} has invalid period`);
 }
 

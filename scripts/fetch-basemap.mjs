@@ -4,7 +4,7 @@ import { feature } from 'topojson-client';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const outDir = path.join(process.cwd(), 'data', 'basemap');
+const outDir = path.join(process.cwd(), 'public', 'data', 'basemap');
 fs.mkdirSync(outDir, { recursive: true });
 
 const write = (name, geojson) => {
