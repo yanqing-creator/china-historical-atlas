@@ -14,8 +14,10 @@ export function refreshMarkers(periodId) {
   currentPeriodId = periodId;
   for (const m of markers) m.remove();
   markers = [];
+  const visibleCityIds = [];
   for (const f of citiesData) {
     if (!f.properties.period.includes(periodId)) continue;
+    visibleCityIds.push(f.properties.id);
     const el = document.createElement('div');
     el.className = 'city-marker';
     el.dataset.cityId = f.properties.id;
@@ -27,5 +29,12 @@ export function refreshMarkers(periodId) {
       .setLngLat(f.geometry.coordinates)
       .addTo(map);
     markers.push(m);
+  }
+  if (map.getLayer('city-dot')) {
+    if (visibleCityIds.length) {
+      map.setFilter('city-dot', ['in', ['get', 'id'], ['literal', visibleCityIds]]);
+    } else {
+      map.setFilter('city-dot', ['==', ['get', 'id'], '']);
+    }
   }
 }
