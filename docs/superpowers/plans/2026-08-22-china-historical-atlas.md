@@ -17,6 +17,8 @@
 - UI 默认中文，右上角可切英文；所有内容字段必须是 zh/en 成对出现
 - 数据文件一律 UTF-8 JSON；GeoJSON 使用 WGS84 经纬度（lon,lat 顺序）
 - 城市中文名用标记 `<span class="cn">`、英文用 `<span class="en">` 包装，语言切换通过 body class `lang-en` 控制显示
+- **全程 TDD（用户选定）：每个任务先写失败的 @playwright/test 测试 → 运行确认失败 → 实现 → 运行确认通过 → 提交**。任务 7-10 的数据任务以 `npm run validate` 的失败/通过作为红绿门
+- `src/main.js` 必须暴露 `window.__hm = { map, setPeriod }`（Task 4 起含 setPeriod），供 Playwright 在页面上断言图层状态；每次全文替换 main.js 都要保留这一行
 
 ## File Structure
 
@@ -58,18 +60,62 @@
 ```
 
 ---
+## Testing Convention（用户选定：全程 TDD 自动化）
+
+本约定**取代**各任务中「验证：npm run dev」的手动检查步骤（手动步骤仅作补充参考）。
+
+**基础设施（Task 1 一并完成）：**
+- `playwright.config.js`：`testDir: 'tests'`，`webServer: { command: 'npm run dev', port: 5173, reuseExistingServer: true }`，`use: { baseURL: 'http://localhost:5173' }`
+- `tests/` 目录；测试文件命名 `tests/taskNN-<topic>.spec.js`
+- 断言图层状态的通用辅助 `tests/helpers.mjs`：
+
+```js
+export async function layerVisibility(page, layerId) {
+  return page.evaluate((id) => window.__hm.map.getLayoutProperty(id, 'visibility') ?? 'visible', layerId);
+}
+export async function hasLayer(page, layerId) {
+  return page.evaluate((id) => !!window.__hm.map.getLayer(id), layerId);
+}
+```
+
+**每任务测试要求：**
+
+| 任务 | 测试文件 | 断言内容 |
+|------|----------|----------|
+| 1 脚手架 | tests/task01-scaffold.spec.js | 页面加载、`.maplibregl-canvas` 出现、`#title` 含「华夏舆图」、无 pageerror |
+| 2 底图 | tests/task02-basemap.spec.js | `hasLayer('land-fill'/'river-line'/'lake-fill')` 全 true；`data/basemap/land.geojson` fetch 200 |
+| 3 疆域 | tests/task03-borders.spec.js | `hasLayer('border-fill-han')` 等 10 个 fill/line 图层存在；默认 `border-fill-han` visibility=visible |
+| 4 时间轴 | tests/task04-timeline.spec.js | 默认「秦汉」active；点击 `[data-period="songliaojin"]` 后 `border-fill-liao` visible 且 `border-fill-han` none；点击 `[data-period="sanguo"]` 后 `border-fill-shu` visible |
+| 5 点位与工程线 | tests/task05-layers.spec.js | 秦汉：`.city-marker[data-city-id="xian"]` 存在、`[data-city-id="shanghai"]` 不存在；切元明清后 shanghai 存在；`wall-ming-line`/`canal-jinghang-line` visible |
+| 6 校验脚本 | `npm run validate` 退出码 1（红） | 报告含空字段清单 |
+| 7 古都正文 | tests/task07-capitals.spec.js | 点击 xian → 面板 `.panel-body` 含「兵马俑」；`npm run validate` 报告中无古都 8 城条目 |
+| 8 名城正文 | tests/task08-cities.spec.js | 点击 suzhou → 含「拙政园」；点击 quanzhou（宋辽金）→ 含「开元寺」；validate 无本批 13 城条目 |
+| 9 风景正文 | tests/task09-scenic.spec.js | 点击 guilin → 含「漓江」；点击 lasa（隋唐）→ 含「布达拉宫」；validate 退出码 0 或仅剩 events 错误 |
+| 10 事件 | tests/task10-events.spec.js | 秦汉：`.event-marker[data-event-id="unify-qin"]` 存在；点击后面板含事件标题；validate 退出码 0 |
+| 11 面板 | tests/task11-panel.spec.js | 点 xian → 6 标签存在；切 guide 标签含「D1」或「Day」；点 `#lang-btn` → body.lang-en 且面板标签变 Guide；切「宋辽金」点 kaifeng → 标题含「汴京」 |
+| 12 LLM | tests/task12-llm.spec.js | 无 Key：guide 无 `#ai-btn`；设置面板保存假 Key 后 guide 出现 `#ai-btn`；点击触发错误提示 `.ai-error`（断网/假 Key，等待失败提示出现） |
+| 13 图例响应式 | tests/task13-legend.spec.js | `#legend` 存在且含「长城」；viewport 375×667 下面板变底部抽屉（`.maplibregl-canvas` 仍在、`#panel` 宽度≈viewport）；`#legend-body` 点击标题可折叠 |
+| 14 冒烟 | scripts/smoke.mjs + `npm run build` | 全流程（同计划 Task 14 原文） |
+
+**TDD 节奏（每个前端任务）：** Step A 写测试（先用 `tests/helpers.mjs` 与上一任务的产物）→ 运行 `npx playwright test tests/taskNN-*.spec.js` 确认失败 → Step B 实现 → 再运行确认通过 → 运行全量 `npx playwright test` 防回归 → 提交。
+
+---
+
 ### Task 1: 项目脚手架（Vite + MapLibre 最小可运行）
 
 **Files:**
 - Create: `package.json`
 - Create: `vite.config.js`
+- Create: `playwright.config.js`
 - Create: `index.html`
 - Create: `src/main.js`
 - Create: `src/style.js`
 - Create: `src/styles.css`
+- Create: `tests/helpers.mjs`
+- Create: `tests/task01-scaffold.spec.js`
 
 **Interfaces:**
-- Produces: `src/style.js` 导出 `PALETTE`（颜色常量对象）与 `buildStyle()`（返回 MapLibre style spec）；`src/main.js` 默认导出无；后续任务 import 这些。
+- Produces: `src/style.js` 导出 `PALETTE`（颜色常量对象）与 `buildStyle()`（返回 MapLibre style spec）；`src/main.js` 导出 `map` 并设置 `window.__hm = { map }`；后续任务 import 这些。
 
 - [ ] **Step 1: 初始化 npm 项目并安装依赖**
 
@@ -77,6 +123,7 @@
 npm init -y
 npm install maplibre-gl@^4.7.0
 npm install -D vite@^5.4.0 world-atlas@^2.0.2 topojson-client@^3.1.0 @playwright/test@^1.46.0
+npx playwright install chromium
 ```
 
 - [ ] **Step 2: 写 package.json scripts**
@@ -93,6 +140,7 @@ npm install -D vite@^5.4.0 world-atlas@^2.0.2 topojson-client@^3.1.0 @playwright
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "playwright test",
     "fetch-basemap": "node scripts/fetch-basemap.mjs",
     "validate": "node scripts/validate.mjs",
     "smoke": "node scripts/smoke.mjs"
@@ -109,7 +157,9 @@ npm install -D vite@^5.4.0 world-atlas@^2.0.2 topojson-client@^3.1.0 @playwright
 }
 ```
 
-- [ ] **Step 3: 写 vite.config.js**
+- [ ] **Step 3: 写 vite.config.js 与 playwright.config.js**
+
+`vite.config.js`：
 
 ```js
 import { defineConfig } from 'vite';
@@ -120,7 +170,60 @@ export default defineConfig({
 });
 ```
 
-- [ ] **Step 4: 写 index.html**
+`playwright.config.js`：
+
+```js
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  testDir: 'tests',
+  use: { baseURL: 'http://localhost:5173' },
+  webServer: {
+    command: 'npm run dev',
+    port: 5173,
+    reuseExistingServer: true,
+    timeout: 60000
+  }
+});
+```
+
+- [ ] **Step 4: 写失败测试（红）**
+
+`tests/helpers.mjs`：
+
+```js
+export async function layerVisibility(page, layerId) {
+  return page.evaluate((id) => window.__hm.map.getLayoutProperty(id, 'visibility') ?? 'visible', layerId);
+}
+export async function hasLayer(page, layerId) {
+  return page.evaluate((id) => !!window.__hm.map.getLayer(id), layerId);
+}
+```
+
+`tests/task01-scaffold.spec.js`：
+
+```js
+import { test, expect } from '@playwright/test';
+
+test('page loads with map canvas, title and no page errors', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto('/');
+  await page.waitForSelector('.maplibregl-canvas', { timeout: 15000 });
+  await expect(page.locator('#title .cn')).toContainText('华夏舆图');
+  expect(errors).toEqual([]);
+});
+```
+
+- [ ] **Step 5: 运行测试确认失败（红）**
+
+```bash
+npx playwright test tests/task01-scaffold.spec.js
+```
+
+Expected: FAIL（`index.html` 尚不存在，dev server 404）。
+
+- [ ] **Step 6: 写 index.html**
 
 ```html
 <!doctype html>
@@ -152,7 +255,7 @@ export default defineConfig({
 </html>
 ```
 
-- [ ] **Step 5: 写 src/style.js（颜色常量 + 基础样式）**
+- [ ] **Step 7: 写 src/style.js（颜色常量 + 基础样式）**
 
 ```js
 export const PALETTE = {
@@ -183,7 +286,7 @@ export function buildStyle() {
 }
 ```
 
-- [ ] **Step 6: 写 src/main.js（最小可运行）**
+- [ ] **Step 8: 写 src/main.js（最小可运行，含 window.__hm）**
 
 ```js
 import maplibregl from 'maplibre-gl';
@@ -201,10 +304,12 @@ const map = new maplibregl.Map({
   attributionControl: false
 });
 
+window.__hm = { map };
+
 export { map };
 ```
 
-- [ ] **Step 7: 写 src/styles.css（基础布局 + 古风底色）**
+- [ ] **Step 9: 写 src/styles.css（基础布局 + 古风底色）**
 
 ```css
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -244,15 +349,15 @@ body.lang-en .tl-btn .en { display: inline; }
 #settings-modal.hidden { display: none; }
 ```
 
-- [ ] **Step 8: 验证运行**
+- [ ] **Step 10: 运行测试确认通过（绿）**
 
 ```bash
-npm run dev
+npx playwright test tests/task01-scaffold.spec.js
 ```
 
-Expected: `curl -s http://localhost:5173 | head` 返回 index.html 内容；浏览器打开显示宣纸色地图画布。Ctrl-C 结束。
+Expected: PASS（地图画布出现、标题正确、无 pageerror）。
 
-- [ ] **Step 9: 验证构建**
+- [ ] **Step 11: 验证构建**
 
 ```bash
 npm run build
@@ -260,7 +365,7 @@ npm run build
 
 Expected: `dist/` 生成成功，无报错。
 
-- [ ] **Step 10: 提交**
+- [ ] **Step 12: 提交**
 
 ```bash
 git add -A
@@ -393,6 +498,8 @@ map.on('load', () => {
   map.addLayer({ id: 'river-line', type: 'line', source: 'rivers',
     paint: { 'line-color': PALETTE.river, 'line-width': ['match', ['get', 'kind'], 'major', 1.4, 0.8] } });
 });
+
+window.__hm = { map };
 
 export { map };
 ```
@@ -670,6 +777,8 @@ map.on('load', () => {
   initTimeline((id) => setPeriod(id));
   setPeriod(PERIODS[0].id);
 });
+
+window.__hm = { map, setPeriod };
 
 export { map, currentPeriod };
 ```
