@@ -36,3 +36,13 @@ body.lang-en .tl-btn .en { display: inline; }
 
 #map { transition: opacity 0.25s ease; }
 #map.period-fading { opacity: 0.55; }
+
+.city-marker { position: relative; display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.city-marker .dot { width: 9px; height: 9px; border-radius: 50%;
+  background: #4a3b2a; border: 2px solid #f3e9d2; box-shadow: 0 0 0 1px #4a3b2a; }
+.city-marker .label { font-family: 'Noto Serif SC', 'Songti SC', serif; font-size: 13px;
+  font-weight: 600; color: #3d2f1e; white-space: nowrap;
+  text-shadow: 0 0 3px #f3e9d2, 0 0 3px #f3e9d2; }
+.city-marker .label.en { display: none; font-family: 'EB Garamond', Georgia, serif; font-size: 11px; font-weight: 400; }
+body.lang-en .city-marker .label.cn { display: none; }
+body.lang-en .city-marker .label.en { display: inline; }

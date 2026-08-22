@@ -4,6 +4,7 @@ import './styles.css';
 import { PALETTE, buildStyle } from './style.js';
 import { PERIODS, ALL_BORDER_IDS, borderIdsByPeriod, periodById } from './periods.js';
 import { initTimeline, markActive } from './ui/timeline.js';
+import { loadMarkers, refreshMarkers } from './markers.js';
 
 const map = new maplibregl.Map({
   container: 'map',
@@ -30,6 +31,17 @@ export function setPeriod(periodId) {
   currentPeriod = periodId;
   const p = periodById(periodId);
   applyPeriodVisibility(periodId);
+  const lineVis = (layerId, periods) => {
+    const vis = periods.includes(periodId) ? 'visible' : 'none';
+    if (map.getLayer(layerId)) map.setLayoutProperty(layerId, 'visibility', vis);
+  };
+  lineVis('wall-qinhan-line', ['qinhan']);
+  lineVis('wall-ming-line', ['yuanmingqing']);
+  lineVis('canal-suitang-line', ['suitang']);
+  lineVis('canal-jinghang-line', ['yuanmingqing']);
+  lineVis('silk-land-line', ['qinhan', 'suitang', 'songliaojin', 'yuanmingqing']);
+  lineVis('silk-sea-line', ['songliaojin', 'yuanmingqing']);
+  refreshMarkers(periodId);
   markActive(periodId);
   const el = document.getElementById('map');
   el.classList.add('period-fading');
@@ -37,7 +49,7 @@ export function setPeriod(periodId) {
   map.flyTo({ center: p.center, zoom: p.zoom, duration: 1200 });
 }
 
-map.on('load', () => {
+map.on('load', async () => {
   map.addSource('land', { type: 'geojson', data: './data/basemap/land.geojson' });
   map.addSource('countries', { type: 'geojson', data: './data/basemap/countries.geojson' });
   map.addSource('rivers', { type: 'geojson', data: './data/geo/rivers.geojson' });
@@ -70,7 +82,34 @@ map.on('load', () => {
     });
   }
 
+  map.addSource('wall', { type: 'geojson', data: './data/geo/wall.geojson' });
+  map.addSource('canal', { type: 'geojson', data: './data/geo/canal.geojson' });
+  map.addSource('silkroad', { type: 'geojson', data: './data/geo/silkroad.geojson' });
+  map.addSource('cities', { type: 'geojson', data: './data/geo/cities.geojson' });
+
+  map.addLayer({ id: 'city-dot', type: 'circle', source: 'cities',
+    paint: { 'circle-radius': 4, 'circle-color': '#4a3b2a', 'circle-stroke-color': '#f3e9d2', 'circle-stroke-width': 1.5 } });
+  map.addLayer({ id: 'wall-qinhan-line', type: 'line', source: 'wall',
+    filter: ['==', ['get', 'id'], 'wall-qinhan'],
+    paint: { 'line-color': PALETTE.wall, 'line-width': 2.2, 'line-dasharray': [4, 2, 1, 2] } });
+  map.addLayer({ id: 'wall-ming-line', type: 'line', source: 'wall',
+    filter: ['==', ['get', 'id'], 'wall-ming'],
+    paint: { 'line-color': PALETTE.wall, 'line-width': 2.2, 'line-dasharray': [4, 2, 1, 2] } });
+  map.addLayer({ id: 'canal-suitang-line', type: 'line', source: 'canal',
+    filter: ['==', ['get', 'id'], 'canal-suitang'],
+    paint: { 'line-color': PALETTE.canal, 'line-width': 1.8, 'line-dasharray': [2, 2] } });
+  map.addLayer({ id: 'canal-jinghang-line', type: 'line', source: 'canal',
+    filter: ['==', ['get', 'id'], 'canal-jinghang'],
+    paint: { 'line-color': PALETTE.canal, 'line-width': 1.8, 'line-dasharray': [2, 2] } });
+  map.addLayer({ id: 'silk-land-line', type: 'line', source: 'silkroad',
+    filter: ['==', ['get', 'id'], 'silk-land'],
+    paint: { 'line-color': PALETTE.silkLand, 'line-width': 1.6, 'line-dasharray': [6, 3] } });
+  map.addLayer({ id: 'silk-sea-line', type: 'line', source: 'silkroad',
+    filter: ['==', ['get', 'id'], 'silk-sea'],
+    paint: { 'line-color': PALETTE.silkSea, 'line-width': 1.6, 'line-dasharray': [2, 4] } });
+
   initTimeline((id) => setPeriod(id));
+  await loadMarkers();
   setPeriod(PERIODS[0].id);
 });
 
