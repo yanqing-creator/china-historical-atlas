@@ -31,6 +31,23 @@ map.on('load', () => {
     paint: { 'line-color': PALETTE.river, 'line-width': 0.7 } });
   map.addLayer({ id: 'river-line', type: 'line', source: 'rivers',
     paint: { 'line-color': PALETTE.river, 'line-width': ['match', ['get', 'kind'], 'major', 1.4, 0.8] } });
+
+  map.addSource('borders', { type: 'geojson', data: './data/geo/borders.geojson' });
+
+  const BORDER_IDS = ['han', 'wei', 'shu', 'wu', 'tang', 'north-song', 'liao', 'xixia', 'dali', 'qing'];
+  for (const id of BORDER_IDS) {
+    map.addLayer({
+      id: `border-fill-${id}`, type: 'fill', source: 'borders',
+      filter: ['==', ['get', 'id'], id],
+      paint: { 'fill-color': ['match', ['get', 'color'], '', ['get', 'color'], '#9c4a3a'],
+               'fill-opacity': 0.16 }
+    });
+    map.addLayer({
+      id: `border-line-${id}`, type: 'line', source: 'borders',
+      filter: ['==', ['get', 'id'], id],
+      paint: { 'line-color': PALETTE.borderLine, 'line-width': 1.6, 'line-opacity': 0.85 }
+    });
+  }
 });
 
 window.__hm = { map };
