@@ -1,0 +1,13 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    { "type": "Feature", "properties": { "id": "qinghai", "name_zh": "青海湖", "name_en": "Qinghai Lake" },
+      "geometry": { "type": "Polygon", "coordinates": [[[99.6,36.9],[100.0,37.2],[100.7,37.1],[100.5,36.7],[100.0,36.6],[99.7,36.7],[99.6,36.9]]] } },
+    { "type": "Feature", "properties": { "id": "dongting", "name_zh": "洞庭湖", "name_en": "Dongting Lake" },
+      "geometry": { "type": "Polygon", "coordinates": [[[112.4,29.3],[112.7,29.5],[113.0,29.4],[112.9,29.1],[112.6,29.0],[112.4,29.1],[112.4,29.3]]] } },
+    { "type": "Feature", "properties": { "id": "poyang", "name_zh": "鄱阳湖", "name_en": "Poyang Lake" },
+      "geometry": { "type": "Polygon", "coordinates": [[[116.0,29.3],[116.3,29.6],[116.5,29.3],[116.3,28.9],[116.0,28.9],[115.9,29.1],[116.0,29.3]]] } },
+    { "type": "Feature", "properties": { "id": "taihu", "name_zh": "太湖", "name_en": "Taihu Lake" },
+      "geometry": { "type": "Polygon", "coordinates": [[[120.1,31.2],[120.3,31.4],[120.5,31.2],[120.3,31.0],[120.1,31.0],[120.1,31.2]]] } }
+  ]
+}
