@@ -94,3 +94,22 @@ body.lang-en #settings-modal .en { display: block; }
 .ai-title { color: #8a6f4d; margin: 12px 0 6px; }
 .ai-md { white-space: pre-wrap; font-family: inherit; font-size: 14px; line-height: 1.8; color: #3d2f1e; }
 .ai-error { color: #8c2f2f; margin-top: 10px; font-size: 13px; }
+
+#legend h4 { font-size: 14px; color: #4a3b2a; cursor: pointer; margin-bottom: 8px; }
+#legend .en { display: none; }
+body.lang-en #legend .cn { display: none; }
+body.lang-en #legend .en { display: inline; }
+#legend.collapsed #legend-body { display: none; }
+.lg-item { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: 13px; color: #3d2f1e; }
+.lg-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid #4a3b2a; flex-shrink: 0; }
+.lg-item .en { display: none; font-family: 'EB Garamond', Georgia, serif; }
+body.lang-en .lg-item .cn { display: none; }
+body.lang-en .lg-item .en { display: inline; }
+
+@media (max-width: 768px) {
+  #panel { width: 100%; top: auto; bottom: 0; height: 55vh; border-left: none; border-top: 1px solid #8a6f4d; }
+  #legend { width: 140px; top: 70px; }
+  #title { font-size: 16px; }
+  #timeline { order: 3; width: 100%; }
+  #topbar { flex-wrap: wrap; }
+}

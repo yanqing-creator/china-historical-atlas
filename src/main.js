@@ -5,6 +5,7 @@ import { PALETTE, buildStyle } from './style.js';
 import { PERIODS, ALL_BORDER_IDS, borderIdsByPeriod, periodById } from './periods.js';
 import { initTimeline, markActive } from './ui/timeline.js';
 import { initSettings } from './ui/settings.js';
+import { initLegend, renderLegend } from './ui/legend.js';
 import { loadMarkers, refreshMarkers } from './markers.js';
 
 const map = new maplibregl.Map({
@@ -44,6 +45,7 @@ export function setPeriod(periodId) {
   lineVis('silk-sea-line', ['songliaojin', 'yuanmingqing']);
   refreshMarkers(periodId);
   markActive(periodId);
+  renderLegend(periodId);
   const el = document.getElementById('map');
   el.classList.add('period-fading');
   setTimeout(() => el.classList.remove('period-fading'), 350);
@@ -112,6 +114,7 @@ map.on('load', async () => {
 
   initTimeline((id) => setPeriod(id));
   initSettings();
+  initLegend();
   await loadMarkers();
   setPeriod(PERIODS[0].id);
 });
