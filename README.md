@@ -51,3 +51,8 @@ npm run build   # 产物在 dist/
 - `public/content/*.json` — 中英双语正文（27 城详情 + 25 事件）
 
 历史疆域为风格化简化绘制，仅供参考示意，非精确历史边界。
+
+## 合作者
+
+- yanqing-creator
+- Yuchen-Zou
