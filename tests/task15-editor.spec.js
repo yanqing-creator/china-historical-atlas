@@ -27,6 +27,21 @@ async function openEditorHarness(page, content) {
   }, content);
 }
 
+async function openCityPanel(page, id) {
+  await page.waitForSelector(`.city-marker[data-city-id="${id}"]`, { timeout: 15000 });
+  await page.locator(`.city-marker[data-city-id="${id}"]`).click();
+  await page.waitForSelector('#panel:not(.closed)', { timeout: 15000 });
+}
+
+const OVERRIDE_XIAN = {
+  attractions_zh: ['编辑后景点'],
+  attractions_en: ['Edited'],
+  food_zh: ['x'],
+  food_en: ['x'],
+  guide_zh: [{ day: '第1天', title: 't', items: ['i'] }],
+  guide_en: [{ day: 'Day 1', title: 't', items: ['i'] }]
+};
+
 test('edit toggle flips isEditMode, active class, and dispatches edit-mode-change', async ({ page }) => {
   await page.evaluate(() => {
     window.__editEvents = [];
@@ -110,4 +125,84 @@ test('save filters empty rows out of list fields', async ({ page }) => {
   await page.waitForSelector('#editor-modal', { state: 'detached', timeout: 5000 });
   const data = await page.evaluate(() => window.__saveResult);
   expect(data.attractions_zh).toEqual(['兵马俑', '大雁塔']);
+});
+
+test('default: no edit button without edit mode', async ({ page }) => {
+  await openCityPanel(page, 'xian');
+  await expect(page.locator('#panel .edit-btn')).toHaveCount(0);
+  await expect(page.locator('#panel .restore-btn')).toHaveCount(0);
+});
+
+test('turning on edit mode reveals edit button', async ({ page }) => {
+  await page.locator('#edit-toggle').click();
+  await openCityPanel(page, 'xian');
+  await expect(page.locator('#panel .edit-btn')).toHaveCount(1);
+  await expect(page.locator('#panel .restore-btn')).toHaveCount(0);
+});
+
+test('closing edit mode hides edit button but saved edits still render', async ({ page }) => {
+  await page.evaluate((o) => {
+    localStorage.setItem('hmap-city-edits', JSON.stringify({ xian: o }));
+  }, OVERRIDE_XIAN);
+  await page.locator('#edit-toggle').click();
+  await openCityPanel(page, 'xian');
+  await expect(page.locator('#panel .edit-btn')).toHaveCount(1);
+  await page.click('#panel .ptab[data-tab="attractions"]');
+  await expect(page.locator('#panel .panel-body')).toContainText('编辑后景点');
+  await page.locator('#edit-toggle').click();
+  await page.waitForTimeout(300);
+  await page.click('#panel .ptab[data-tab="attractions"]');
+  await expect(page.locator('#panel .edit-btn')).toHaveCount(0);
+  await expect(page.locator('#panel .panel-body')).toContainText('编辑后景点');
+});
+
+test('full flow: edit attraction via panel, save, panel reflects it and shows restore', async ({ page }) => {
+  await page.locator('#edit-toggle').click();
+  await openCityPanel(page, 'xian');
+  await page.locator('#panel .edit-btn').click();
+  await page.waitForSelector('#editor-modal:not(.hidden)', { timeout: 5000 });
+  await page.locator('#editor-modal .ed-block').first().locator('.add-attr').click();
+  const lastAttr = page.locator('#editor-modal .ed-block').first().locator('.attr-row').last().locator('input');
+  await lastAttr.fill('新测试景点');
+  await page.locator('#editor-save').click();
+  await page.waitForSelector('#editor-modal', { state: 'detached', timeout: 5000 });
+  await page.click('#panel .ptab[data-tab="attractions"]');
+  await expect(page.locator('#panel .panel-body')).toContainText('新测试景点');
+  await expect(page.locator('#panel .restore-btn')).toHaveCount(1);
+});
+
+test('saved edits persist after page reload', async ({ page }) => {
+  await page.locator('#edit-toggle').click();
+  await openCityPanel(page, 'xian');
+  await page.locator('#panel .edit-btn').click();
+  await page.waitForSelector('#editor-modal:not(.hidden)', { timeout: 5000 });
+  await page.locator('#editor-modal .ed-block').first().locator('.add-attr').click();
+  const lastAttr = page.locator('#editor-modal .ed-block').first().locator('.attr-row').last().locator('input');
+  await lastAttr.fill('持久化景点');
+  await page.locator('#editor-save').click();
+  await page.waitForSelector('#editor-modal', { state: 'detached', timeout: 5000 });
+  await page.reload();
+  await page.locator('#edit-toggle').click();
+  await openCityPanel(page, 'xian');
+  await page.click('#panel .ptab[data-tab="attractions"]');
+  await expect(page.locator('#panel .panel-body')).toContainText('持久化景点');
+  await expect(page.locator('#panel .restore-btn')).toHaveCount(1);
+});
+
+test('restore default resets the city content and clears storage', async ({ page }) => {
+  await page.evaluate((o) => {
+    localStorage.setItem('hmap-city-edits', JSON.stringify({ xian: o }));
+  }, OVERRIDE_XIAN);
+  await page.locator('#edit-toggle').click();
+  await openCityPanel(page, 'xian');
+  await page.click('#panel .ptab[data-tab="attractions"]');
+  await expect(page.locator('#panel .panel-body')).toContainText('编辑后景点');
+  await page.locator('#panel .restore-btn').click();
+  await page.waitForSelector('#restore-confirm', { timeout: 5000 });
+  await page.locator('#restore-confirm-yes').click();
+  await page.waitForSelector('#restore-confirm', { state: 'detached', timeout: 5000 });
+  await expect(page.locator('#panel .restore-btn')).toHaveCount(0);
+  await expect(page.locator('#panel .panel-body')).not.toContainText('编辑后景点');
+  await expect(page.locator('#panel .panel-body')).toContainText('兵马俑');
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('hmap-city-edits')))).toEqual({});
 });

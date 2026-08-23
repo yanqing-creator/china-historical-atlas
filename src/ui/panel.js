@@ -1,5 +1,7 @@
 import { lang, setLang, t, UI } from '../i18n.js';
 import { getLLMConfig } from './settings.js';
+import { hasEdit, applyOverrides, resetCity, saveCity } from '../editstore.js';
+import { openEditor } from './editor.js';
 
 window.getLLMConfig = getLLMConfig;
 
@@ -52,10 +54,13 @@ function renderBody(c) {
 function renderHeader(c, meta) {
   const l = lang();
   const ancient = meta.ancient && meta.ancient[currentCityPeriod] ? meta.ancient[currentCityPeriod][l] : null;
+  const editBtns = window.isEditMode
+    ? `<div class="panel-actions"><button class="edit-btn">${esc(t('editContent'))}</button>${hasEdit(currentCityId) ? `<button class="restore-btn">${esc(t('restoreDefault'))}</button>` : ''}</div>`
+    : '';
   return `<div class="panel-head">
     <button class="panel-close">×</button>
     <h2>${esc(c[`name_${l}`])}${ancient ? ` <span class="ancient">· ${esc(ancient)}</span>` : ''}</h2>
-    <p class="tagline">${esc(c[`tagline_${l}`])}</p>
+    <p class="tagline">${esc(c[`tagline_${l}`])}</p>${editBtns}
   </div>`;
 }
 
@@ -86,7 +91,7 @@ export async function openCity(id) {
   currentCityId = id;
   currentCityPeriod = window.currentPeriod || 'qinhan';
   activeTab = 'history';
-  const c = contentCache[id];
+  const c = applyOverrides(contentCache[id], id);
   const meta = cityMeta[id];
   const panel = document.getElementById('panel');
   panel.classList.remove('closed');
@@ -102,6 +107,32 @@ function bindPanel(panel, c) {
     panel.querySelector('.panel-body').innerHTML = renderBody(c);
     panel.querySelectorAll('.ptab').forEach((x) => x.classList.toggle('active', x.dataset.tab === activeTab));
   }));
+  const editBtn = panel.querySelector('.edit-btn');
+  if (editBtn) {
+    editBtn.addEventListener('click', () => openEditor(currentCityId, c, (data) => {
+      try {
+        saveCity(currentCityId, data);
+      } catch {
+        alert(t('storageUnavailable'));
+      }
+      openCity(currentCityId);
+    }));
+  }
+  const restoreBtn = panel.querySelector('.restore-btn');
+  if (restoreBtn) {
+    restoreBtn.addEventListener('click', () => {
+      const box = document.createElement('div');
+      box.id = 'restore-confirm';
+      box.innerHTML = `<div class="restore-box"><p>${esc(t('restoreConfirm'))}</p><div class="restore-actions"><button id="restore-confirm-no">${esc(t('cancel'))}</button><button id="restore-confirm-yes">${esc(t('restoreDefault'))}</button></div></div>`;
+      document.body.appendChild(box);
+      box.querySelector('#restore-confirm-no').addEventListener('click', () => box.remove());
+      box.querySelector('#restore-confirm-yes').addEventListener('click', () => {
+        resetCity(currentCityId);
+        box.remove();
+        openCity(currentCityId);
+      });
+    });
+  }
 }
 
 export function closePanel() {
@@ -111,5 +142,9 @@ export function closePanel() {
 }
 
 document.addEventListener('lang-change', () => {
+  if (currentCityId) openCity(currentCityId);
+});
+
+document.addEventListener('edit-mode-change', () => {
   if (currentCityId) openCity(currentCityId);
 });
