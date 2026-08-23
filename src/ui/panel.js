@@ -109,17 +109,19 @@ function bindPanel(panel, c) {
   }));
   const editBtn = panel.querySelector('.edit-btn');
   if (editBtn) {
-    editBtn.addEventListener('click', () => openEditor(currentCityId, c, (data) => {
+    const cid = currentCityId;
+    editBtn.addEventListener('click', () => openEditor(cid, c, (data) => {
       try {
-        saveCity(currentCityId, data);
+        saveCity(cid, data);
       } catch {
         alert(t('storageUnavailable'));
       }
-      openCity(currentCityId);
+      openCity(cid);
     }));
   }
   const restoreBtn = panel.querySelector('.restore-btn');
   if (restoreBtn) {
+    const cid = currentCityId;
     restoreBtn.addEventListener('click', () => {
       const box = document.createElement('div');
       box.id = 'restore-confirm';
@@ -127,9 +129,9 @@ function bindPanel(panel, c) {
       document.body.appendChild(box);
       box.querySelector('#restore-confirm-no').addEventListener('click', () => box.remove());
       box.querySelector('#restore-confirm-yes').addEventListener('click', () => {
-        resetCity(currentCityId);
+        resetCity(cid);
         box.remove();
-        openCity(currentCityId);
+        openCity(cid);
       });
     });
   }

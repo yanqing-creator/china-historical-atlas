@@ -14,6 +14,12 @@ function currentState() {
   return window.__editorState;
 }
 
+function cleanGuide(days) {
+  return days
+    .map((d) => ({ ...d, items: d.items.filter((v) => v.trim() !== '') }))
+    .filter((d) => d.title.trim() !== '' || d.items.length > 0);
+}
+
 export function openEditor(cityId, currentContent, onSave) {
   onSaveCb = onSave;
   window.__editorState = {
@@ -108,8 +114,8 @@ export function openEditor(cityId, currentContent, onSave) {
         attractions_en: s.attractions_en.filter((v) => v.trim() !== ''),
         food_zh: s.food_zh.filter((v) => v.trim() !== ''),
         food_en: s.food_en.filter((v) => v.trim() !== ''),
-        guide_zh: s.guide_zh,
-        guide_en: s.guide_en
+        guide_zh: cleanGuide(s.guide_zh),
+        guide_en: cleanGuide(s.guide_en)
       });
       closeEditor(modal);
     } catch {
