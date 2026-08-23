@@ -114,6 +114,7 @@ map.on('load', async () => {
 
   initTimeline((id) => setPeriod(id));
   initSettings();
+  initEditorToggle();
   initLegend();
   await loadMarkers();
   setPeriod(PERIODS[0].id);
@@ -128,6 +129,14 @@ import { openCity } from './ui/panel.js';
 import { openEvent } from './ui/eventpanel.js';
 
 window.currentPeriod = currentPeriod;
+
+function initEditorToggle() {
+  document.getElementById('edit-toggle').addEventListener('click', () => {
+    window.isEditMode = !window.isEditMode;
+    document.getElementById('edit-toggle').classList.toggle('active', window.isEditMode);
+    document.dispatchEvent(new CustomEvent('edit-mode-change', { detail: { on: window.isEditMode } }));
+  });
+}
 document.getElementById('lang-btn').addEventListener('click', () => {
   setLang(document.body.classList.contains('lang-en') ? 'zh' : 'en');
 });

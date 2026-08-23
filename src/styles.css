@@ -119,3 +119,32 @@ body.lang-en .legend-contrib .en { display: inline; }
   #timeline { order: 3; width: 100%; }
   #topbar { flex-wrap: wrap; }
 }
+
+#edit-toggle.active { background: #8a6f4d; color: #f3e9d2; border-color: #8a6f4d; }
+#editor-modal { position: fixed; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); }
+#editor-modal.hidden { display: none; }
+.editor-box { width: 720px; max-width: 92vw; max-height: 86vh; overflow-y: auto; background: #faf4e4; border: 1px solid #8a6f4d; border-radius: 4px; padding: 18px; }
+.editor-box h3 { color: #4a3b2a; margin-bottom: 12px; }
+.ed-block { margin-bottom: 16px; }
+.ed-block h4 { color: #6b4f2e; font-size: 14px; margin-bottom: 6px; }
+.ed-block input { width: 100%; padding: 5px 8px; border: 1px solid #b9a888; background: #fffdf5; font-family: inherit; font-size: 13px; border-radius: 3px; margin-bottom: 4px; }
+.attr-row { display: flex; gap: 6px; margin-bottom: 4px; }
+.attr-row input { flex: 1; margin-bottom: 0; }
+.attr-row button { flex-shrink: 0; border: 1px solid #8a6f4d; background: transparent; color: #8c2f2f; cursor: pointer; font-family: inherit; border-radius: 3px; }
+.ed-block > button { margin-top: 4px; border: 1px dashed #8a6f4d; background: transparent; color: #4a3b2a; cursor: pointer; font-family: inherit; border-radius: 3px; padding: 4px 10px; }
+.ed-en { border-top: 1px dashed #b9a888; padding-top: 10px; margin-top: 6px; }
+.ed-guide-day { border: 1px solid #d9c9a8; border-radius: 3px; padding: 8px; margin-bottom: 8px; }
+.ed-guide-day h5 { color: #4a3b2a; font-size: 13px; }
+.guide-item-row { display: flex; gap: 6px; margin: 4px 0; }
+.guide-item-row input { flex: 1; margin-bottom: 0; }
+.guide-item-row button { flex-shrink: 0; }
+.ed-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+.ed-actions button { padding: 7px 18px; border: 1px solid #8a6f4d; background: #4a3b2a; color: #f3e9d2; cursor: pointer; font-family: inherit; border-radius: 3px; }
+#editor-cancel { background: transparent; color: #4a3b2a; }
+.restore-btn { border: 1px solid #8a6f4d; background: transparent; color: #8c2f2f; cursor: pointer; font-family: inherit; border-radius: 3px; padding: 4px 10px; margin-left: 8px; }
+.edit-btn { border: 1px solid #8a6f4d; background: transparent; color: #4a3b2a; cursor: pointer; font-family: inherit; border-radius: 3px; padding: 4px 10px; }
+#restore-confirm { position: fixed; inset: 0; z-index: 31; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); }
+#restore-confirm .restore-box { background: #faf4e4; border: 1px solid #8a6f4d; border-radius: 4px; padding: 18px; max-width: 360px; }
+#restore-confirm .restore-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+#restore-confirm button { padding: 6px 14px; border: 1px solid #8a6f4d; background: #4a3b2a; color: #f3e9d2; cursor: pointer; font-family: inherit; border-radius: 3px; }
+#restore-confirm-yes { background: #8c2f2f !important; }
