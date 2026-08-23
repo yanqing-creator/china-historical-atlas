@@ -118,6 +118,14 @@ body.lang-en .legend-contrib .en { display: inline; }
   #title { font-size: 16px; }
   #timeline { order: 3; width: 100%; }
   #topbar { flex-wrap: wrap; }
+  .city-marker .dot { width: 12px; height: 12px; }
+  .city-marker .label { font-size: 15px; }
+  .event-marker .dot { width: 15px; height: 15px; }
+  .event-marker .label { font-size: 13px; }
+  .city-marker, .event-marker { padding: 6px; margin: -6px; }
+  #top-actions button, .tl-btn { min-width: 44px; min-height: 44px; }
+  .ptab, .edit-btn, .restore-btn { padding: 8px 12px; font-size: 14px; }
+  .editor-box { width: 96vw; }
 }
 
 #edit-toggle.active { background: #8a6f4d; color: #f3e9d2; border-color: #8a6f4d; }

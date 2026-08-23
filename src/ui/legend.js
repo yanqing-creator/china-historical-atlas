@@ -3,6 +3,10 @@ import { t } from '../i18n.js';
 export function initLegend() {
   const el = document.getElementById('legend');
   el.innerHTML = `<h4 class="cn">图例</h4><h4 class="en">Legend</h4><div id="legend-body"></div><div class="legend-contrib"><span class="cn">${t('contributors')}</span><span class="en">${t('contributors')}</span><ul><li>yanqing-creator</li><li>Yuchen-Zou</li></ul></div>`;
+  const mq = window.matchMedia('(max-width: 768px)');
+  const applyCollapse = (collapsed) => el.classList.toggle('collapsed', collapsed);
+  applyCollapse(mq.matches);
+  mq.addEventListener('change', (e) => applyCollapse(e.matches));
   el.addEventListener('click', (e) => {
     if (e.target.tagName === 'H4') el.classList.toggle('collapsed');
   });
