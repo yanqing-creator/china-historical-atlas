@@ -1,58 +1,63 @@
 # 华夏舆图 · Historical Atlas of China
 
+An antique-style interactive historical map of China: a 5-period timeline (Qin-Han → Yuan-Ming-Qing), 10 polity territories, bilingual details and 3-day travel guides for 27 cities, 25 historical events, and Great Wall / Grand Canal / Silk Road layers, with optional LLM-enhanced guides.
+
 古风交互式中国历史地图：5 时期时间轴（秦汉→元明清）、10 个政权疆域、27 城中英双语详情与 3 日旅游攻略、25 个历史事件、长城/大运河/丝绸之路图层，可选 LLM 攻略增强。
 
-**在线预览：** https://yanqing-creator.github.io/china-historical-atlas/
+**Online Preview 在线预览:** https://yanqing-creator.github.io/china-historical-atlas/
 
-## 一键启动
+## One-Click Launch 一键启动
 
-| 脚本 | 用途 |
+| Script 脚本 | Purpose 用途 |
 |------|------|
-| `打开地图.cmd` / `打开地图.command` | 双击打开**在线版**（GitHub Pages） |
-| `本地打开.cmd` / `本地打开.command` | 双击**离线本地浏览**（首次自动构建，起本地服务并打开浏览器） |
+| `打开地图.cmd` / `打开地图.command` | Open the **online version** (GitHub Pages) 双击打开**在线版** |
+| `本地打开.cmd` / `本地打开.command` | Open **offline locally** (auto-builds on first run, starts a local server and opens the browser) 双击**离线本地浏览** |
 
-- macOS 用 `.command`，Windows 用 `.cmd`
-- 本地打开依赖 Node.js（nvm 已自动处理），关闭终端窗口即停止服务
-- 离线可用：地图与内容数据全部本地打包；仅字体需联网（离线回退系统宋体）
+- Use `.command` on macOS, `.cmd` on Windows
+- Local launch requires Node.js (nvm handled automatically); close the terminal window to stop the server
+- Works fully offline: all map and content data is bundled locally; only fonts need network (falls back to system Songti offline)
 
-## 开发运行
+## Development 开发运行
 
 ```bash
 npm install
-npm run dev        # 开发服务器 http://localhost:5173
+npm run dev        # dev server at http://localhost:5173
 ```
 
-## 校验与测试
+## Validation & Testing 校验与测试
 
 ```bash
-npm run validate        # 数据一致性（27 城 / 25 事件全字段中英齐全）
-npx playwright test     # 24 个浏览器端到端测试
-npm run build && npm run smoke   # 构建产物冒烟测试
+npm run validate                    # data consistency (all bilingual fields for 27 cities / 25 events)
+npx playwright test                 # 24 end-to-end browser tests
+npm run build && npm run smoke      # smoke test on the built output
 ```
 
-## 部署（GitHub Pages）
+## Deployment (GitHub Pages) 部署
 
-已配置 GitHub Actions（`.github/workflows/pages.yml`）：每次 push 到 `main` 自动构建并部署。
+A GitHub Actions workflow (`.github/workflows/pages.yml`) is configured: every push to `main` auto-builds and deploys.
 
-也可手动构建后部署到任意静态托管（Vercel / Netlify 等）：
+可以手动构建后部署到任意静态托管（Vercel / Netlify 等）：
 
 ```bash
-npm run build   # 产物在 dist/
+npm run build   # output in dist/
 ```
 
-## 可选 LLM
+## Optional LLM 可选 LLM
 
-右上角 ⚙ 填入 OpenAI 兼容 API Key / Base URL / 模型名，即可在攻略页使用「AI 增强」。
+Click the gear ⚙ in the top-right to enter an OpenAI-compatible API Key / Base URL / model name, then use the "AI Enhance" button on the travel-guide tab.
 配置仅存于浏览器 localStorage，不会上传。
 
-## 数据
+- Only stored in browser localStorage; never uploaded.
 
-- `public/data/geo/*.geojson` — 几何与元信息（疆域/城市/事件/长城/运河/丝路）
-- `public/content/*.json` — 中英双语正文（27 城详情 + 25 事件）
+## Data 数据
 
+- `public/data/geo/*.geojson` — geometry & metadata (territories / cities / events / Great Wall / Grand Canal / Silk Road)
+- `public/content/*.json` — bilingual content (27 city profiles + 25 events)
+
+Historical territories are stylized and simplified for display only; they are not precise historical borders.
 历史疆域为风格化简化绘制，仅供参考示意，非精确历史边界。
 
-## 合作者
+## Contributors 合作者
 
 - yanqing-creator
 - Yuchen-Zou
